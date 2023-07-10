@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  app:
+    image: denoland/deno:alpine-1.35.0
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - deno_dir:/deno-dir
+    ports:
+      - 8000:8000
+    command: deno task dev
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:15.3-alpine3.18
+    volumes:
+      - pgsql:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
+      POSTGRES_USER: "${DB_USER:-sensei}"
+      POSTGRES_DB: "${DB_NAME:-deno_coba}"
+
+volumes:
+  pgsql:
+    driver: local
+  deno_dir:

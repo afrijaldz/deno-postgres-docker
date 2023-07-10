@@ -1,0 +1,11 @@
+docker run --name deno-init \
+  -p 5432:5432 \
+  -e POSTGRES_PASSWORD=mysecretpassword \
+  -e POSTGRES_USER=ijul \
+  -e POSTGRES_DB=deno_init \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+	-v pgsql:/var/lib/postgresql/data \
+  -d postgres
+
+
+deno install --unstable --allow-net=localhost:5432 --allow-read=. --allow-write=nessie.config.ts,db -f https://deno.land/x/nessie@2.0.10/cli.ts

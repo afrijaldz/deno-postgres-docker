@@ -1,0 +1,5 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.path": "/Users/DZ8074/.dvm/bin/deno"
+}
