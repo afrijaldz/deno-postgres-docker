@@ -59,6 +59,10 @@ export class UserRepository {
       [user.name, user.password, user.email]
     );
 
-    return this.toApiUser(result.rows[0]);
+    const data = JSON.stringify(result.rows[0], (_, v) =>
+      typeof v === "bigint" ? v.toString() : v
+    );
+
+    return this.toApiUser(JSON.parse(data));
   }
 }

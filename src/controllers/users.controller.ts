@@ -12,7 +12,7 @@ export function hello(ctx: RouterContext<string>) {
   };
 }
 
-export async function getAll(ctx: RouterContext<string>) {
+export async function all(ctx: RouterContext<string>) {
   await client.connect();
   const result = await client.queryObject(`SELECT * FROM Users`);
 
