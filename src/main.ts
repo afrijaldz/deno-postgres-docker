@@ -1,17 +1,14 @@
-import { Application, Router } from "oak";
-import { hello } from "./controllers/user.ts";
-// import { bgGreen, black } from "fmt/colors.ts";
-// import * as yup from "https://cdn.pika.dev/yup@^0.29.0";
-
-// import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
-
-const router = new Router();
-
-router.get("/", hello);
+import { Application } from "oak";
+import router from "./router.ts";
+import { enableCors, errorHandler } from "./middlewares/global.middleware.ts";
 
 const app = new Application();
+
+app.use(enableCors);
+app.use(errorHandler);
 
 app.use(router.routes());
 app.use(router.allowedMethods());
 
+console.log(`Server running: http://localhost:${8000}`);
 await app.listen({ port: 8000 });
