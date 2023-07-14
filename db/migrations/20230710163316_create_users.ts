@@ -9,9 +9,10 @@ export default class extends AbstractMigration<ClientPostgreSQL> {
     const query = Dex({ client: "postgres" })
       .schema.createTable("users", (table: any) => {
         table.bigIncrements("id").primary();
-        table.string("name", 50);
-        table.string("email", 50).unique();
-        table.string("password", 50);
+        table.string("name", 50).notNullable();
+        table.string("email", 50).notNullable().unique();
+        table.string("password", 50).notNullable();
+        table.boolean("is_verified").defaultTo(false);
         table.timestamps(undefined, true);
       })
       .toString();

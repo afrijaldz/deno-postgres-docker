@@ -5,7 +5,8 @@
     "bcrypt": "https://deno.land/x/bcrypt@v0.4.1/mod.ts",
     "postgres/": "https://deno.land/x/postgres@v0.17.0/",
     "djwt": "https://deno.land/x/djwt@v2.9/mod.ts",
-    "std/": "https://deno.land/std@0.193.0/"
+    "std/": "https://deno.land/std@0.193.0/",
+    "yup": "https://cdn.pika.dev/yup@^0.29.0"
   },
   "tasks": {
     "dev": "deno run -A --watch src/main.ts",

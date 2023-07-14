@@ -1,7 +1,5 @@
-import { Router, RouterContext } from "oak";
+import { RouterContext } from "oak";
 import client from "../db.ts";
-import { IUser } from "../types/user.ts";
-import { resolve } from "std/path/win32.ts";
 import { UserForm, UserRepository } from "../repositories/users.repo.ts";
 
 export function hello(ctx: RouterContext<string>) {
@@ -16,7 +14,7 @@ export async function all(ctx: RouterContext<string>) {
   await client.connect();
   const result = await client.queryObject(`SELECT * FROM Users`);
 
-  const products = new Array();
+  const products = [];
 
   result.rows.map((p: any) => {
     let obj: any = new Object();

@@ -1,5 +1,7 @@
 import type { Context, Next } from "oak";
 import ApiError from "../controllers/error.ts";
+import { User } from "../repositories/users.repo.ts";
+import { validate } from "djwt";
 
 export async function errorHandler(ctx: Context, next: Next) {
   try {
@@ -41,4 +43,20 @@ export async function enableCors(ctx: Context, next: Next) {
   }
 
   await next();
+}
+
+export async function handleAuthHeader(
+  ctx: Context<{ user: Omit<User, "password"> | null }>,
+  next: () => Promise<void>
+) {
+  try {
+    const { request, state } = ctx;
+
+    const jwt =
+      request.headers.get("authorization")?.split("bearer ")?.[1] || "";
+
+    const validateJwt = await validate(jwt, Deno.env.get("JWT_SECRET"), {
+      is_throwing: false,
+    });
+  } catch (error) {}
 }
